@@ -29,4 +29,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Commands of Angular
 
 `ng g m modules/auth --routing`
+`ng g m modules/task/Task --flat --routing`
+`ng g c modules/task/page/TaskPage --flat`
+`ng g pipe shared/pipes/ReplaceSpace`
+`ng g guard core/guards/ValidateSession`
 
