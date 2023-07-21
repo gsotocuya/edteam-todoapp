@@ -1,1 +1,13 @@
-<h1>Hola..</h1>
+<app-header></app-header>
+
+<ul>
+  <li *ngFor="let user of listUser">
+    <ng-container *ngTemplateOutlet="tplHello;context:{currentUser:user}"></ng-container>
+  </li>
+</ul>
+
+
+
+<ng-template #tplHello let-myuser="currentUser">
+  Hola buenos días {{myuser?.name}} :D
+</ng-template>
