@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ColumnService } from './column.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class NewTaskService {
   private _itemsFormGroup$ = new BehaviorSubject(null);
   public itemsFormGroup$ = this._itemsFormGroup$.asObservable();
 
-  constructor(private httpClient:HttpClient) {}
+  constructor(private httpClient:HttpClient, private columnService:ColumnService) {}
 
   public setShow(flag: boolean, payload?:any) {
     this.payload = payload;
@@ -32,6 +33,8 @@ export class NewTaskService {
     return this.httpClient.post(
       `${this.URL}/task/${this.payload}`,
       body
+    ).pipe(
+      tap(() => this.columnService.reloadColumn(this.payload))
     )
   }
 }

@@ -42,7 +42,8 @@ export class NewTaskComponent implements OnInit {
     const body = this.newTask.value
     this.newTaskService.saveTask(body)
     .subscribe((response) => {
-      console.log(response)
+      this.newTaskService.setShow(false)
+      console.log('la tarea se guardo!!')
     })
   }
   cancel(): void {
