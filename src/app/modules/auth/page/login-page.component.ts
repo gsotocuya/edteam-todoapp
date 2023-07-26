@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReplaceSpacePipe } from '@shared/pipes/replace-space.pipe';
+import { AuthService } from '../services/auth.service';
+import { CookieService } from 'ngx-cookie';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -9,6 +11,10 @@ import { ReplaceSpacePipe } from '@shared/pipes/replace-space.pipe';
 })
 export class LoginPageComponent implements OnInit{
   loginForm: FormGroup = new FormGroup({});
+
+  constructor(private authServices:AuthService, private router:Router){
+
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -20,6 +26,10 @@ export class LoginPageComponent implements OnInit{
 
   sendCredentials():void {
     const body = this.loginForm.value;
+    this.authServices.submitLogin(body)
+    .subscribe((response) => {
+      this.router.navigate(['/','task'])
+    })
     console.log(body)
   }
 }

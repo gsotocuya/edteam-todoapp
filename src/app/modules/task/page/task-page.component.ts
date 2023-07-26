@@ -1,135 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TaskService } from '../services/task.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-page',
   templateUrl: './task-page.component.html',
   styleUrls: ['./task-page.component.css'],
 })
-export class TaskPageComponent implements OnInit {
-
+export class TaskPageComponent implements OnInit, OnDestroy {
   groups: Array<any> = [];
+  // groups$:Observable<any> = new Observable;
+  groups$:Observable<any> = this.taskService.getTask();
+  listObservables$: Array<Subscription> = [];
 
-  constructor() {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.groups = [
-      {
-        label: 'Nuevos',
-        color: 'tomato',
-        list: [
-          {
-            order: 'Como instalar Angular',
-            items: [
-              {
-                key: 'price',
-                value: 152,
-              },
-              {
-                key: 'time',
-                value: 152,
-              },
-              {
-                key: 'author',
-                value: {
-                  name: 'Grimaldo SOTO',
-                  avatar:
-                    'https://avatars.githubusercontent.com/u/118828231?v=4"',
-                },
-              },
-            ],
-          },
-          {
-            order: 'Como instalar Angular',
-            items: [
-              {
-                key: 'price',
-                value: 152,
-              },
-              {
-                key: 'time',
-                value: 152,
-              },
-              {
-                key: 'author',
-                value: {
-                  name: 'Grimaldo SOTO',
-                  avatar:
-                    'https://avatars.githubusercontent.com/u/118828231?v=4"',
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
-        label: 'in progress',
-        color: 'tomato',
-        list: [
-          {
-            order: 'Como instalar Angular',
-            items: [
-              {
-                key: 'price',
-                value: 152,
-              },
-              {
-                key: 'time',
-                value: 152,
-              },
-              {
-                key: 'author',
-                value: {
-                  name: 'Grimaldo SOTO',
-                  avatar:
-                    'https://avatars.githubusercontent.com/u/118828231?v=4"',
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
-        label: 'finish',
-        color: 'tomato',
-        list: [
-          {
-            order: 'Como instalar Angular',
-            items: [
-              {
-                key: 'price',
-                value: 152,
-              },
-              {
-                key: 'time',
-                value: 152,
-              },
-              {
-                key: 'author',
-                value: {
-                  name: 'Grimaldo SOTO',
-                  avatar:
-                    'https://avatars.githubusercontent.com/u/118828231?v=4"',
-                },
-              },
-            ],
-          },
-        ],
-      },
-    ];
+    // this.taskService.getTask().subscribe((response) => {
+    //   const {data} = response;
+    //   this.groups = data;
+    //   console.log('--->', response);
+    // });
   }
 
-  listUser: Array<{ id: string; name: string }> = [
-    {
-      id: '1',
-      name: 'Leifer',
-    },
-    {
-      id: '2',
-      name: 'Maria',
-    },
-    {
-      id: '3',
-      name: 'pedro',
-    },
-  ];
+  ngOnDestroy(): void {
+    console.log('me voy a destruir');
+    this.listObservables$.forEach((subscription) => subscription.unsubscribe());
+  }
 }

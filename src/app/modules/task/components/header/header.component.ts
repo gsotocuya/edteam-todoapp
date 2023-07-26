@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NewTaskService } from '@modules/task/services/new-task.service';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,11 @@ export class HeaderComponent {
     {
       name: 'Settings',
       router: [],
-    }
+    },
   ];
+  constructor(private newTaskService:NewTaskService) {}
+
+  // openNewTask(): void {
+  //   this.newTaskService.setShow(true);
+  // }
 }

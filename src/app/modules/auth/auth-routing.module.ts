@@ -6,7 +6,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 const routes: Routes = [ //TODO: http://localhost:4200/auth/
   {
     path:'login',
-    component: RegisterFormComponent
+    component: LoginPageComponent
   }
 ];
 

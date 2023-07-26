@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CookieModule } from 'ngx-cookie';
+import { TokenSessionInterceptor } from '@core/interceptors/token-session.interceptor';
 
 @NgModule({
   declarations: [
@@ -10,9 +13,15 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    CookieModule.withOptions()
   ],
-  providers: [],
+  providers: [{
+    useClass: TokenSessionInterceptor,
+    provide: HTTP_INTERCEPTORS,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

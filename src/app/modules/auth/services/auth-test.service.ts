@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable, async, catchError, delay, of, map} from 'rxjs';
